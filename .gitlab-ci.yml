@@ -82,3 +82,16 @@ stop_deploy_dev:
     environment:
         name: $CI_COMMIT_REF_SLUG
         action: stop
+
+deploy_prod:
+    stage: deploy_prod
+    only:
+        - master
+    <<: *deploy_template
+    variables:
+        COMPOSE_FILE: docker-compose.yml:docker-compose-traefik.yml
+        COMPOSE_PROJECT_NAME: $CI_PROJECT_PATH_SLUG
+        HOST: prod.prod.sikademo.com
+    environment:
+        name: $CI_COMMIT_REF_SLUG
+        url: https://prod.prod.sikademo.com
