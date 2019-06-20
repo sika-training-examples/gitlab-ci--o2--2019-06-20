@@ -3,7 +3,7 @@ import "fmt"
 import "net/http"
 
 func index(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintf(w, Awesom Hello World from O2!\n")
+    fmt.Fprintf(w, "Awesom Hello World from O2!\n")
 }
 
 func main() {
