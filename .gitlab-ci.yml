@@ -33,3 +33,12 @@ build_test:
         changes:
             - docker-compose*.yml
             - test/**
+
+test:
+    stage: test
+    variables:
+        COMPOSE_FILE: docker-compose.yml:docker-compose-test.yml
+        COMPOSE_PROJECT_NAME: $CI_JOB_ID
+    script:
+        - docker-compose run test
+        - docker-compose down
