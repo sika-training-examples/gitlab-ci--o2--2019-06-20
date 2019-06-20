@@ -93,5 +93,5 @@ deploy_prod:
         COMPOSE_PROJECT_NAME: $CI_PROJECT_PATH_SLUG
         HOST: prod.prod.sikademo.com
     environment:
-        name: $CI_COMMIT_REF_SLUG
+        name: $CI_PROJECT_PATH_SLUG
         url: https://prod.prod.sikademo.com
