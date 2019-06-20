@@ -8,14 +8,28 @@ stages:
 
 variables:
     IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+    IMAGE_TEST: $CI_REGISTRY_IMAGE/test:$CI_COMMIT_REF_SLUG
 
-build:
+before_script:
+    - docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
+
+.build_template: &build_template
     stage: build
     script:
-        - docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
         - docker-compose build
         - docker-compose push
+build:
+    <<: *build_template
     only:
         changes:
             - docker-compose.yml
             - server/**
+
+build_test:
+    <<: *build_template
+    variables:
+        COMPOSE_FILE: docker-compose.yml:docker-compose-test.yml
+    only:
+        changes:
+            - docker-compose*.yml
+            - test/**

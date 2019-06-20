@@ -1,0 +1,7 @@
+version: '3.7'
+services:
+    test:
+        build: test
+        image: $IMAGE_TEST
+        depends_on:
+            - server
