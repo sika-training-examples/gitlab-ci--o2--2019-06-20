@@ -43,6 +43,11 @@ test:
         - docker-compose pull
         - docker-compose run test
         - docker-compose down
+    only:
+        changes:
+            - docker-compose*.yml
+            - test/**
+            - server/**
 
 deploy_dev:
     stage: deploy_dev
