@@ -1,0 +1,14 @@
+version: '3.6'
+services:
+  server:
+    labels:
+        traefik.enable: true
+        traefik.frontend.rule: Host:$HOST
+    networks:
+      - default
+      - traefik
+
+networks:
+    traefik:
+        external:
+            name: traefik

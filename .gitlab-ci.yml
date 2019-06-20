@@ -43,3 +43,18 @@ test:
         - docker-compose pull
         - docker-compose run test
         - docker-compose down
+
+deploy_dev:
+    stage: deploy_dev
+    tags:
+        - prod
+    variables:
+        COMPOSE_FILE: docker-compose.yml:docker-compose-traefik.yml
+        COMPOSE_PROJECT_NAME: $CI_COMMIT_REF_SLUG
+        HOST: $CI_PROJECT_PATH_SLUG-$CI_COMMIT_REF_SLUG.prod.sikademo.com
+    script:
+        - docker-compose pull
+        - docker-compose up -d
+    environments:
+        name: $CI_COMMIT_REF_SLUG
+        url: https://$CI_PROJECT_PATH_SLUG-$CI_COMMIT_REF_SLUG.prod.sikademo.com
